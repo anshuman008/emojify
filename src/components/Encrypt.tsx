@@ -9,19 +9,22 @@ const Encrypt = () => {
   const [copiedEmoji, setCopiedEmoji] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchData = async (e: FormData) => {
+  const fetchData = async (e:any) => {
+    e.preventDefault(); // Prevent the default form submission
     setIsLoading(true);
-    const responce = await encryptMsg(e);
+    
+    const formData = new FormData(e.target); // Get form data
+    const responce = await encryptMsg(formData);
     if (responce) {
-      setIsLoading(false);
       setEmojiEncrytion(responce);
     }
+    setIsLoading(false); // Set loading state to false after the message is set
   };
   return (
     <div className=" w-[90%] md:w-[650px] ">
       <form
         method="POST"
-        action={fetchData}
+        onSubmit={(e)=>fetchData(e)}
         className="  flex flex-col gap-y-10 mb-5"
       >
         <div className="flex flex-col gap-y-2">

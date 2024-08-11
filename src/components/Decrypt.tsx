@@ -8,11 +8,14 @@ const Decrypt = () => {
   const [isError,setIsError] = useState(false);
   const [isLoading,setIsLoading] = useState(false);
 
-  const fetchData = async (e: FormData) => {
+  const fetchData = async (e:any) => {
+    e.preventDefault(); // Prevent the default form submission
     setIsLoading(true);
+    setIsError(false);
+    setTextDecryption('');
+    const formData = new FormData(e.target);
 
-    const responce = await decryptMsg(e);
-    setIsLoading(false);
+    const responce = await decryptMsg(formData);
      if(responce === "error"){
       setIsError(true);
       setTextDecryption('');
@@ -21,13 +24,13 @@ const Decrypt = () => {
           setTextDecryption(responce);
           setIsError(false);
      }
-    
+     setIsLoading(false);
   };
   return (
     <div className=" w-[90%] md:w-[650px] ">
       <form
         method="POST"
-        action={fetchData}
+        onSubmit={(e)=>fetchData(e)}
         className="flex flex-col gap-y-10 pb-5"
       >
         <div className="flex flex-col gap-y-2">
