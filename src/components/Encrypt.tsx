@@ -11,8 +11,7 @@ const Encrypt = () => {
 
   const fetchData = async (e: FormData) => {
     setIsLoading(true);
-    // const responce = await encryptMsg(e);
-    const responce = null;
+    const responce = await encryptMsg(e);
     if (responce) {
       setIsLoading(false);
       setEmojiEncrytion(responce);

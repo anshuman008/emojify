@@ -60,20 +60,22 @@ const encryptMsg = async (formData: FormData) => {
     const password = formData.get('password') as string;
     let encryption = encryptText(content) as string;
 
-    await connectDb();
+
+      return "🥺😘😭🤤😥😥🤖";
+//     await connectDb();
   
-    let existedEncryption = await encryptionModel.find({encryption});
+//     let existedEncryption = await encryptionModel.find({encryption});
 
  
-    while(existedEncryption.length){
-        encryption = encryptText(content);
-        existedEncryption = await encryptionModel.find({encryption});
-    }
+//     while(existedEncryption.length){
+//         encryption = encryptText(content);
+//         existedEncryption = await encryptionModel.find({encryption});
+//     }
     
 
-   const responce = await encryptionModel.create({content,password,encryption});
+//    const responce = await encryptionModel.create({content,password,encryption});
 
-   return responce.encryption;
+//    return responce.encryption;
 }
 
 export default encryptMsg;
