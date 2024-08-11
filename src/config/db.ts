@@ -9,7 +9,7 @@ import mongoose, { mongo } from "mongoose";
 
 export const connectDb = async() =>{
 
-  console.log('db call is here!!',process.env.MONGO_URI);
+  console.log('db call is here!!',process.env.MONGOURI);
 
     if(connection.isConnected === 1){
         console.log("1. Db is Already Connected");
@@ -18,7 +18,7 @@ if(!connection.isConnected){
   try{
 
     console.log('2. db is trying to connect!!')
-    const db = await mongoose.connect(process.env.MONGO_URI as string);
+    const db = await mongoose.connect(process.env.MONGOURI as string);
     console.log('3. after awai from db connect!!',db.connections[0].readyState);
 
     connection.isConnected = db.connections[0].readyState;
