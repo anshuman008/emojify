@@ -1,5 +1,6 @@
 "use client";
-import decryptMsg from "@/app/serverActions/DecryptText";
+import { decrypt } from "@/app/alogrothims/cryptoAlgos";
+import { dataToBytes } from "@/app/alogrothims/transFromData";
 import React, { useState } from "react";
 
 const Decrypt = () => {
@@ -10,21 +11,37 @@ const Decrypt = () => {
 
   const fetchData = async (e:any) => {
     e.preventDefault(); // Prevent the default form submission
-    setIsLoading(true);
-    setIsError(false);
-    setTextDecryption('');
-    const formData = new FormData(e.target);
+ 
+    try {
+      const dataInBytes = dataToBytes(e.target.encryption.value);
+      const data = await decrypt(dataInBytes, e.target.password.value);
 
-    const responce = await decryptMsg(formData);
-     if(responce === "error"){
+        setTextDecryption(data);
+         setIsError(false);
+      console.log(data);
+      // setDecryptedText(data);
+      // setError("");
+    } catch (err) {
+      console.error(err);
       setIsError(true);
-      setTextDecryption('');
-     }
-     else{
-          setTextDecryption(responce);
-          setIsError(false);
-     }
-     setIsLoading(false);
+      setTextDecryption("");
+      // setDecryptedText("");
+    }
+    // setIsLoading(true);
+    // setIsError(false);
+    // setTextDecryption('');
+    // const formData = new FormData(e.target);
+
+    // const responce = await decryptMsg(formData);
+    //  if(responce === "error"){
+    //   setIsError(true);
+    //   setTextDecryption('');
+    //  }
+    //  else{
+    //       setTextDecryption(responce);
+    //       setIsError(false);
+    //  }
+    //  setIsLoading(false);
   };
   return (
     <div className=" w-[90%] md:w-[650px] ">

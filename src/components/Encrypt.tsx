@@ -1,24 +1,36 @@
 "use client";
 
-import encryptMsg from "@/app/serverActions/EncryptMoji";
+
+import { EncryptData } from "@/app/alogrothims/Crypto";
 import { tree } from "next/dist/build/templates/app-page";
 import React, { useState } from "react";
+import { encrypt } from "@/app/alogrothims/cryptoAlgos";
+import { convertToEmoji } from "@/app/alogrothims/transFromData";
 
 const Encrypt = () => {
   const [emojiEncryption, setEmojiEncrytion] = useState("");
   const [copiedEmoji, setCopiedEmoji] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [encryptedBuffer, setEncryptedBuffer] = useState()
 
   const fetchData = async (e:any) => {
     e.preventDefault(); // Prevent the default form submission
-    setIsLoading(true);
+
+    const data = e.target.normaltext.value;
+    const password = e.target.password.value;
+
+    const encData = await encrypt(data, password);
+     setEmojiEncrytion(convertToEmoji(encData));
+
+    // EncryptData(data,password);
+    // setIsLoading(true);
     
-    const formData = new FormData(e.target); // Get form data
-    const responce = await encryptMsg(formData);
-    if (responce) {
-      setEmojiEncrytion(responce);
-    }
-    setIsLoading(false); // Set loading state to false after the message is set
+    // const formData = new FormData(e.target); // Get form data
+    // const responce = await encryptMsg(formData);
+    // if (responce) {
+    //   setEmojiEncrytion(responce);
+    // }
+    // setIsLoading(false); // Set loading state to false after the message is set
   };
   return (
     <div className=" w-[90%] md:w-[650px] ">
