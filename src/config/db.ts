@@ -12,12 +12,15 @@ export const connectDb = async() =>{
   console.log('db call is here!!',process.env.MONGO_URI);
 
     if(connection.isConnected === 1){
-        console.log("Db is Already Connected");
+        console.log("1. Db is Already Connected");
     }
 if(!connection.isConnected){
   try{
+
+    console.log('2. db is trying to connect!!')
     const db = await mongoose.connect(process.env.MONGO_URI as string);
-     
+    console.log('3. after awai from db connect!!',db.connections[0].readyState);
+
     connection.isConnected = db.connections[0].readyState;
     console.log(db.connections[0].readyState);
     console.log("db Connected Sucessfully!!")
