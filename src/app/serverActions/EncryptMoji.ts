@@ -61,9 +61,9 @@ const encryptMsg = async (formData: FormData) => {
     let encryption = encryptText(content) as string;
 
 
-      return "🥺😘😭🤤😥😥🤖";
-//     await connectDb();
-  
+    await connectDb();
+    return "🥺😘😭🤤😥😥🤖";
+
 //     let existedEncryption = await encryptionModel.find({encryption});
 
  
